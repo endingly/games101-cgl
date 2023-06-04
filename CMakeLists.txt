@@ -34,6 +34,7 @@ endif()
 
 # ############################################################ install CGL
 set(EXPORT_NAME ${PROJECT_NAME}Targets)
+set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/install)
 install(
     TARGETS ${EXPORT_LIBS}
     EXPORT ${EXPORT_NAME}
@@ -48,23 +49,21 @@ write_basic_package_version_file(
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion
 )
+
 configure_package_config_file(
     ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
     ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-    INSTALL_DESTINATION share
-)
-
-install(
-    FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    DESTINATION share
+    INSTALL_DESTINATION share/CGL
 )
 
 install(
     FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    DESTINATION share
+          "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    DESTINATION share/CGL
 )
 
 install(
     EXPORT ${EXPORT_NAME}
-    DESTINATION share
+    DESTINATION share/CGL
+    NAMESPACE CGL::
 )
