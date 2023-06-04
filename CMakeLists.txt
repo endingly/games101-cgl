@@ -33,7 +33,6 @@ if(BUILD_STATIC_LIBS)
 endif()
 
 # ############################################################ install CGL
-set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/install)
 set(EXPORT_NAME ${PROJECT_NAME}Targets)
 install(
     TARGETS ${EXPORT_LIBS}
