@@ -34,7 +34,6 @@ endif()
 
 # ############################################################ install CGL
 set(EXPORT_NAME ${PROJECT_NAME}Targets)
-set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/install)
 install(
     TARGETS ${EXPORT_LIBS}
     EXPORT ${EXPORT_NAME}
