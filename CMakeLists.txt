@@ -45,7 +45,7 @@ include(CMakePackageConfigHelpers)
 configure_package_config_file(
     "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
     "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION "lib/cmake/${PROJECT_NAME}"
+    INSTALL_DESTINATION "share/${PROJECT_NAME}"
 )
 
 write_basic_package_version_file(
@@ -57,11 +57,11 @@ write_basic_package_version_file(
 install(
     FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
           "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    DESTINATION lib/cmake/${PROJECT_NAME}
+    DESTINATION share/${PROJECT_NAME}
 )
 
 install(
     EXPORT ${EXPORT_NAME}
-    DESTINATION lib/cmake/${PROJECT_NAME}
+    DESTINATION share/${PROJECT_NAME}
     NAMESPACE CGL::
 )
