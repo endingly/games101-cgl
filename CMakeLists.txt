@@ -28,6 +28,7 @@ if(BUILD_STATIC_LIBS)
         CGL PROPERTIES
         PUBLIC_HEADER "${CGL_HEADERS_FILES}"
         VERSION ${PROJECT_VERSION}
+        DEBUG_POSTFIX d
     )
     set(EXPORT_LIBS CGL)
 endif()
@@ -56,7 +57,7 @@ write_basic_package_version_file(
 
 install(
     FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-          "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
     DESTINATION share/${PROJECT_NAME}
 )
 

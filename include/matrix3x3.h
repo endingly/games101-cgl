@@ -4,121 +4,119 @@
 #include <iosfwd>
 
 #include "vector3D.h"
+#include "common.h"
 
-namespace CGL {
+namespace CGL
+{
 
-/**
- * Defines a 3x3 matrix.
- * 3x3 matrices are extremely useful in computer graphics.
- */
-class Matrix3x3 {
+      /**
+       * Defines a 3x3 matrix.
+       * 3x3 matrices are extremely useful in computer graphics.
+       */
+      class CGL_EXPORT Matrix3x3
+      {
 
-  public:
+      public:
+            // The default constructor.
+            Matrix3x3(void) {}
 
-  // The default constructor.
-  Matrix3x3(void) { }
+            // Constructor for row major form data.
+            // Transposes to the internal column major form.
+            // REQUIRES: data should be of size 9 for a 3 by 3 matrix..
+            Matrix3x3(double *data)
+            {
+                  for (int i = 0; i < 3; i++)
+                        for (int j = 0; j < 3; j++)
+                        {
+                              // Transpostion happens within the () query.
+                              (*this)(i, j) = data[i * 3 + j];
+                        }
+            }
 
-  // Constructor for row major form data.
-  // Transposes to the internal column major form.
-  // REQUIRES: data should be of size 9 for a 3 by 3 matrix..
-  Matrix3x3(double * data)
-  {
-    for( int i = 0; i < 3; i++ )
-    for( int j = 0; j < 3; j++ )
-    {
-	  // Transpostion happens within the () query.
-	  (*this)(i,j) = data[i*3 + j];
-    }
+            /**
+             * Sets all elements to val.
+             */
+            void zero(double val = 0.0);
 
-  }
+            /**
+             * Returns the determinant of A.
+             */
+            double det(void) const;
 
+            /**
+             * Returns the Frobenius norm of A.
+             */
+            double norm(void) const;
 
+            /**
+             * Returns the 3x3 identity matrix.
+             */
+            static Matrix3x3 identity(void);
 
-  /**
-   * Sets all elements to val.
-   */
-  void zero(double val = 0.0 );
+            /**
+             * Returns a matrix representing the (left) cross product with u.
+             */
+            static Matrix3x3 crossProduct(const Vector3D &u);
 
-  /**
-   * Returns the determinant of A.
-   */
-  double det( void ) const;
+            /**
+             * Returns the ith column.
+             */
+            Vector3D &column(int i);
+            const Vector3D &column(int i) const;
 
-  /**
-   * Returns the Frobenius norm of A.
-   */
-  double norm( void ) const;
+            /**
+             * Returns the transpose of A.
+             */
+            Matrix3x3 T(void) const;
 
-  /**
-   * Returns the 3x3 identity matrix.
-   */
-  static Matrix3x3 identity( void );
+            /**
+             * Returns the inverse of A.
+             */
+            Matrix3x3 inv(void) const;
 
-  /**
-   * Returns a matrix representing the (left) cross product with u.
-   */
-  static Matrix3x3 crossProduct( const Vector3D& u );
+            // accesses element (i,j) of A using 0-based indexing
+            double &operator()(int i, int j);
+            const double &operator()(int i, int j) const;
 
-  /**
-   * Returns the ith column.
-   */
-        Vector3D& column( int i );
-  const Vector3D& column( int i ) const;
+            // accesses the ith column of A
+            Vector3D &operator[](int i);
+            const Vector3D &operator[](int i) const;
 
-  /**
-   * Returns the transpose of A.
-   */
-  Matrix3x3 T( void ) const;
+            // increments by B
+            void operator+=(const Matrix3x3 &B);
 
-  /**
-   * Returns the inverse of A.
-   */
-  Matrix3x3 inv( void ) const;
+            // returns -A
+            Matrix3x3 operator-(void) const;
 
-  // accesses element (i,j) of A using 0-based indexing
-        double& operator()( int i, int j );
-  const double& operator()( int i, int j ) const;
+            // returns A-B
+            Matrix3x3 operator-(const Matrix3x3 &B) const;
 
-  // accesses the ith column of A
-        Vector3D& operator[]( int i );
-  const Vector3D& operator[]( int i ) const;
+            // returns c*A
+            Matrix3x3 operator*(double c) const;
 
-  // increments by B
-  void operator+=( const Matrix3x3& B );
+            // returns A*B
+            Matrix3x3 operator*(const Matrix3x3 &B) const;
 
-  // returns -A
-  Matrix3x3 operator-( void ) const;
+            // returns A*x
+            Vector3D operator*(const Vector3D &x) const;
 
-  // returns A-B
-  Matrix3x3 operator-( const Matrix3x3& B ) const;
+            // divides each element by x
+            void operator/=(double x);
 
-  // returns c*A
-  Matrix3x3 operator*( double c ) const;
+      protected:
+            // column vectors
+            Vector3D entries[3];
 
-  // returns A*B
-  Matrix3x3 operator*( const Matrix3x3& B ) const;
+      }; // class Matrix3x3
 
-  // returns A*x
-  Vector3D operator*( const Vector3D& x ) const;
+      // returns the outer product of u and v
+      CGL_EXPORT Matrix3x3 outer(const Vector3D &u, const Vector3D &v);
 
-  // divides each element by x
-  void operator/=( double x );
+      // returns c*A
+      Matrix3x3 operator*(double c, const Matrix3x3 &A);
 
-  protected:
-
-  // column vectors
-  Vector3D entries[3];
-
-}; // class Matrix3x3
-
-// returns the outer product of u and v
-Matrix3x3 outer( const Vector3D& u, const Vector3D& v );
-
-// returns c*A
-Matrix3x3 operator*( double c, const Matrix3x3& A );
-
-// prints entries
-std::ostream& operator<<( std::ostream& os, const Matrix3x3& A );
+      // prints entries
+      std::ostream &operator<<(std::ostream &os, const Matrix3x3 &A);
 
 } // namespace CGL
 

@@ -8,103 +8,102 @@
 
 #include <GLFW/glfw3.h>
 
-namespace CGL {
-
-/**
- * Provides OpenGL context, window display, and event handling routines. 
- * A user application may draw to the window's context by providing
- * a user renderer. The viewer manages other display components such as the
- * zoom views, text OSD, etc. It also takes care of window event handling and
- * event passing, through which the renderer may interact with user inputs. 
- */
-class Viewer {
- public:
+namespace CGL
+{
 
   /**
-   * Constructor.
-   * Creates a new viewer with the default title (CGL).
+   * Provides OpenGL context, window display, and event handling routines.
+   * A user application may draw to the window's context by providing
+   * a user renderer. The viewer manages other display components such as the
+   * zoom views, text OSD, etc. It also takes care of window event handling and
+   * event passing, through which the renderer may interact with user inputs.
    */
-  Viewer( void );
+  class CGL_EXPORT Viewer
+  {
+  public:
+    /**
+     * Constructor.
+     * Creates a new viewer with the default title (CGL).
+     */
+    Viewer(void);
 
-  /** 
-   * Constructor.
-   * Creates a new viweer with the given title.
-   */
-  Viewer( const char* title );
+    /**
+     * Constructor.
+     * Creates a new viweer with the given title.
+     */
+    Viewer(const char *title);
 
-  /**
-   * Destructor.
-   * Destroys the viewer instance and frees memory.
-   * Note that this does not change the user space renderer.
-   */
-  ~Viewer( void );
+    /**
+     * Destructor.
+     * Destroys the viewer instance and frees memory.
+     * Note that this does not change the user space renderer.
+     */
+    ~Viewer(void);
 
-  /**
-   * Initialize the viewer.
-   * This will open up a window and install all the event handlers
-   * and make the viewer ready for drawing.
-   */
-  void init( void );
-  
-  /**
-   * Start the drawing loop of the viewer.
-   * Once called this will block until the viewer is close.
-   */
-  void start( void );
+    /**
+     * Initialize the viewer.
+     * This will open up a window and install all the event handlers
+     * and make the viewer ready for drawing.
+     */
+    void init(void);
 
-  /**
-   * Set a user space renderer.
-   * The viewer will use the given user space renderer in drawing.
-   * \param renderer The user space renderer to use in the viewer.
-   */
-  void set_renderer( Renderer *renderer );
+    /**
+     * Start the drawing loop of the viewer.
+     * Once called this will block until the viewer is close.
+     */
+    void start(void);
 
- private:
+    /**
+     * Set a user space renderer.
+     * The viewer will use the given user space renderer in drawing.
+     * \param renderer The user space renderer to use in the viewer.
+     */
+    void set_renderer(Renderer *renderer);
 
-  /**
-   * Main update loop.
-   */
-  static void update( void );
-    
-  /**
-   * Draw information view.
-   */
-  static void drawInfo( void );
+  private:
+    /**
+     * Main update loop.
+     */
+    static void update(void);
 
-  // window event callbacks
-  static void err_callback( int error, const char* description );
-  static void key_callback( GLFWwindow* window, int key, int scancode, int action, int mods );
-  static void resize_callback( GLFWwindow* window, int width, int height );
-  static void cursor_callback( GLFWwindow* window, double xpos, double ypos );
-  static void scroll_callback( GLFWwindow* window, double xoffset, double yoffset);
-  static void mouse_button_callback( GLFWwindow* window, int button, int action, int mods );
+    /**
+     * Draw information view.
+     */
+    static void drawInfo(void);
 
-  // HDPI display
-  static bool HDPI;
+    // window event callbacks
+    static void err_callback(int error, const char *description);
+    static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+    static void resize_callback(GLFWwindow *window, int width, int height);
+    static void cursor_callback(GLFWwindow *window, double xpos, double ypos);
+    static void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
+    static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
 
-  // framerate related timeers
-  static int framecount; 
-  static std::chrono::time_point<std::chrono::system_clock> sys_last; 
-  static std::chrono::time_point<std::chrono::system_clock> sys_curr; 
+    // HDPI display
+    static bool HDPI;
 
-  // info toggle
-  static bool showInfo;
+    // framerate related timeers
+    static int framecount;
+    static std::chrono::time_point<std::chrono::system_clock> sys_last;
+    static std::chrono::time_point<std::chrono::system_clock> sys_curr;
 
-  // window properties
-  static GLFWwindow* window;
-  static size_t buffer_w;
-  static size_t buffer_h;
+    // info toggle
+    static bool showInfo;
 
-  // user space renderer
-  static Renderer* renderer; 
+    // window properties
+    static GLFWwindow *window;
+    static size_t buffer_w;
+    static size_t buffer_h;
 
-  // on-screen display
-  static OSDText* osd_text;
-  static int line_id_renderer;
-  static int line_id_framerate;
+    // user space renderer
+    static Renderer *renderer;
 
+    // on-screen display
+    static OSDText *osd_text;
+    static int line_id_renderer;
+    static int line_id_framerate;
 
-}; // class Viewer
+  }; // class Viewer
 
 } // namespace CGL
 
