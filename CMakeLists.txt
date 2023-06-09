@@ -14,7 +14,7 @@ find_package(Freetype REQUIRED)
 file(GLOB_RECURSE CGL_SOURCES_FILES src/*.cpp)
 file(GLOB_RECURSE CGL_HEADERS_FILES include/*.h)
 
-add_library(CGL SHARED ${CGL_SOURCES_FILES})
+add_library(CGL ${CGL_SOURCES_FILES})
 target_link_libraries(CGL PRIVATE glfw GLEW::GLEW Freetype::Freetype)
 target_include_directories(
     CGL PUBLIC
@@ -28,24 +28,11 @@ set_target_properties(
     DEBUG_POSTFIX d
 )
 
-add_library(CGL-static STATIC ${CGL_SOURCES_FILES})
-target_link_libraries(CGL-static PRIVATE glfw GLEW::GLEW Freetype::Freetype)
-target_include_directories(
-    CGL-static PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
-set_target_properties(
-    CGL-static PROPERTIES
-    PUBLIC_HEADER "${CGL_HEADERS_FILES}"
-    VERSION ${PROJECT_VERSION}
-    DEBUG_POSTFIX d
-)
-
 # ############################################################ install CGL
 set(EXPORT_NAME ${PROJECT_NAME}Targets)
 
 install(
-    TARGETS CGL CGL-static
+    TARGETS CGL
     EXPORT "${EXPORT_NAME}"
     PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
 )
