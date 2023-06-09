@@ -1,9 +1,9 @@
 #ifndef CGL_RENDERER_H
 #define CGL_RENDERER_H
 
+#include "common.h"
 #include <stdio.h>
 #include <string>
-#include "common.h"
 
 namespace CGL
 {
@@ -15,25 +15,27 @@ namespace CGL
 #define MOUSE_BUTTON_RELEASE 0
 #define MOUSE_BUTTON_PRESS 1
 
-  /**
-   * Abstract renderer definition.
-   * The abstract class defines a general framework for user-space renderers.
-   * User space renderers can have different routines for drawing, and the
-   * viewer will call the render function to display the output of user space
-   * renderers. The viewer will also forward events such as buffer resizes to
-   * the user space renderer for it to respond. It will also pass events that it
-   * does not know how to handle to the renderer so that the renderer can define
-   * its own control keybindings, etc.
-   */
-   class CGL_EXPORT Renderer
-  {
+/**
+ * Abstract renderer definition.
+ * The abstract class defines a general framework for user-space renderers.
+ * User space renderers can have different routines for drawing, and the
+ * viewer will call the render function to display the output of user space
+ * renderers. The viewer will also forward events such as buffer resizes to
+ * the user space renderer for it to respond. It will also pass events that it
+ * does not know how to handle to the renderer so that the renderer can define
+ * its own control keybindings, etc.
+ */
+class CGL_EXPORT Renderer
+{
   public:
     /**
      * Virtual Destructor.
      * Each renderer implementation should define its own destructor
      * that takes care of freeing the resources that it uses.
      */
-    virtual ~Renderer(void) {}
+    virtual ~Renderer(void)
+    {
+    }
 
     /**
      * Initialize the renderer.
@@ -83,7 +85,9 @@ namespace CGL
      * using keybindings that the viewer already uses. (see Viewer for details)
      * \param key The key being pressed by the user.
      */
-    virtual void key_event(char key) {}
+    virtual void key_event(char key)
+    {
+    }
 
     /**
      * Respond to cursor events.
@@ -97,7 +101,9 @@ namespace CGL
      *             encodes: right mouse button, middle mouse button, left mouse
      *             button.
      */
-    virtual void cursor_event(float x, float y, unsigned char keys) {}
+    virtual void cursor_event(float x, float y, unsigned char keys)
+    {
+    }
 
     /**
      * Respond to zoom event.
@@ -107,7 +113,9 @@ namespace CGL
      * \param offset_x Scroll offset in x direction
      * \param offset_y Scroll offset in y direction
      */
-    virtual void scroll_event(float offset_x, float offset_y) {}
+    virtual void scroll_event(float offset_x, float offset_y)
+    {
+    }
 
     /**
      * Respond to mouse button event.
@@ -118,17 +126,22 @@ namespace CGL
      * \param event The type of event. Possible values are 0, 1 and 2, which
      *        correspond to release, press, repeat(held down).
      */
-    virtual void mouse_button_event(int button, int event) {}
+    virtual void mouse_button_event(int button, int event)
+    {
+    }
 
     /**
      * Internal -
      * The viewer will tell the renderer if the screen is in HDPI mode.
      */
-    void use_hdpi_reneder_target() { use_hdpi = true; }
+    void use_hdpi_reneder_target()
+    {
+        use_hdpi = true;
+    }
 
   protected:
     bool use_hdpi; ///< if the render target is using HIDPI
-  };
+};
 
 } // namespace CGL
 

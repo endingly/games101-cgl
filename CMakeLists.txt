@@ -20,7 +20,11 @@ target_include_directories(
     CGL PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
-target_compile_definitions(CGL PRIVATE BUILD_SHARED_LIBS)
+
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(CGL PRIVATE CGL_BUILD_SHARED_LIBS)
+endif()
+
 set_target_properties(
     CGL PROPERTIES
     PUBLIC_HEADER "${CGL_HEADERS_FILES}"
