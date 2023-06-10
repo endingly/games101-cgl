@@ -5,6 +5,9 @@ project(CGL VERSION 0.1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+if(MSVC)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW REQUIRED)
@@ -20,11 +23,6 @@ target_include_directories(
     CGL PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
-
-if(BUILD_SHARED_LIBS)
-    target_compile_definitions(CGL PRIVATE CGL_BUILD_SHARED_LIBS)
-endif()
-
 set_target_properties(
     CGL PROPERTIES
     PUBLIC_HEADER "${CGL_HEADERS_FILES}"

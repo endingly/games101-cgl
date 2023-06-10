@@ -4,7 +4,6 @@
 #include <iosfwd>
 
 #include "vector3D.h"
-#include "common.h"
 
 namespace CGL
 {
@@ -13,7 +12,7 @@ namespace CGL
        * Defines a 3x3 matrix.
        * 3x3 matrices are extremely useful in computer graphics.
        */
-      class CGL_EXPORT Matrix3x3
+      class Matrix3x3
       {
 
       public:
@@ -110,7 +109,7 @@ namespace CGL
       }; // class Matrix3x3
 
       // returns the outer product of u and v
-      CGL_EXPORT Matrix3x3 outer(const Vector3D &u, const Vector3D &v);
+      Matrix3x3 outer(const Vector3D &u, const Vector3D &v);
 
       // returns c*A
       Matrix3x3 operator*(double c, const Matrix3x3 &A);

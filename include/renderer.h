@@ -1,7 +1,6 @@
 #ifndef CGL_RENDERER_H
 #define CGL_RENDERER_H
 
-#include "common.h"
 #include <stdio.h>
 #include <string>
 
@@ -25,7 +24,7 @@ namespace CGL
  * does not know how to handle to the renderer so that the renderer can define
  * its own control keybindings, etc.
  */
-class CGL_EXPORT Renderer
+class Renderer
 {
   public:
     /**

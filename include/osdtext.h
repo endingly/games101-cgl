@@ -9,18 +9,18 @@
 
 // forward declare freetype stuff
 struct FT_LibraryRec_;
-typedef struct FT_LibraryRec_ *FT_Library;
+typedef struct FT_LibraryRec_* FT_Library;
 struct FT_FaceRec_;
-typedef struct FT_FaceRec_ *FT_Face;
+typedef struct FT_FaceRec_* FT_Face;
 
 namespace CGL
 {
-  CGL_EXPORT const char *get_osdfont_base64();
-  // base64 encoded embeded font
-  extern "C" char CGL_EXPORT osdfont_base64[];
+const char* get_osdfont_base64();
+// base64 encoded embeded font
+extern "C" char osdfont_base64[];
 
-  struct CGL_EXPORT OSDLine
-  {
+struct OSDLine
+{
 
     // UID of the line
     int id;
@@ -36,16 +36,16 @@ namespace CGL
 
     // font color
     Color color;
-  };
+};
 
-  /**
-   * Provides an interface for text on-screen display.
-   * Note that this requires GL_BLEND enabled to work. Do note this is a very
-   * basic implementation and the cost of all operations increases linearly with
-   * respect to the number of lines and the length of the lines.
-   */
-  class CGL_EXPORT OSDText
-  {
+/**
+ * Provides an interface for text on-screen display.
+ * Note that this requires GL_BLEND enabled to work. Do note this is a very
+ * basic implementation and the cost of all operations increases linearly with
+ * respect to the number of lines and the length of the lines.
+ */
+class OSDText
+{
   public:
     /**
      * Constructor.
@@ -93,8 +93,7 @@ namespace CGL
      *         is non-negative. If the line was not successfully added,
      *         -1 is returned.
      */
-    int add_line(float x, float y, std::string text = "", size_t size = 16,
-                 Color color = Color::White);
+    int add_line(float x, float y, std::string text = "", size_t size = 16, Color color = Color::White);
 
     /**
      * Deletes a line.
@@ -151,10 +150,10 @@ namespace CGL
     int next_id;
 
     // freetype
-    char *font;
-    size_t font_size;
-    FT_Library *ft;
-    FT_Face *face;
+    char*       font;
+    size_t      font_size;
+    FT_Library* ft;
+    FT_Face*    face;
 
     // lines to draw
     std::vector<OSDLine> lines;
@@ -162,16 +161,16 @@ namespace CGL
     // GL stuff
     GLuint vbo;
     GLuint program;
-    GLint attribute_coord;
-    GLint uniform_tex;
-    GLint uniform_color;
+    GLint  attribute_coord;
+    GLint  uniform_tex;
+    GLint  uniform_color;
 
     // GL helpers
     GLuint compile_shaders();
-    GLint get_attribu(GLuint program, const char *name);
-    GLint get_uniform(GLuint program, const char *name);
+    GLint  get_attribu(GLuint program, const char* name);
+    GLint  get_uniform(GLuint program, const char* name);
 
-  }; // class textOSD
+}; // class textOSD
 
 } // namespace CGL
 
