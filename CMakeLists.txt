@@ -18,7 +18,7 @@ file(GLOB_RECURSE CGL_SOURCES_FILES src/*.cpp)
 file(GLOB_RECURSE CGL_HEADERS_FILES include/*.h)
 
 add_library(CGL ${CGL_SOURCES_FILES})
-target_link_libraries(CGL glfw GLEW::GLEW Freetype::Freetype)
+target_link_libraries(CGL PUBLIC glfw GLEW::GLEW PRIVATE Freetype::Freetype)
 target_include_directories(
     CGL PUBLIC
     $<INSTALL_INTERFACE:include>
@@ -34,7 +34,7 @@ set_target_properties(
 set(EXPORT_NAME ${PROJECT_NAME}Targets)
 
 install(
-    TARGETS CGL
+    TARGETS CGL 
     EXPORT "${EXPORT_NAME}"
     PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
 )
