@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(CGL VERSION 0.1.0 LANGUAGES CXX)
+project(games101-cgl VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -17,14 +17,14 @@ find_package(Freetype REQUIRED)
 file(GLOB_RECURSE CGL_SOURCES_FILES src/*.cpp)
 file(GLOB_RECURSE CGL_HEADERS_FILES include/*.h)
 
-add_library(CGL ${CGL_SOURCES_FILES})
-target_link_libraries(CGL PUBLIC glfw GLEW::GLEW PRIVATE Freetype::Freetype)
+add_library(${PROJECT_NAME} ${CGL_SOURCES_FILES})
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw GLEW::GLEW PRIVATE Freetype::Freetype)
 target_include_directories(
-    CGL PUBLIC
+    ${PROJECT_NAME} PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 set_target_properties(
-    CGL PROPERTIES
+    ${PROJECT_NAME} PROPERTIES
     PUBLIC_HEADER "${CGL_HEADERS_FILES}"
     VERSION ${PROJECT_VERSION}
     DEBUG_POSTFIX d
@@ -34,7 +34,7 @@ set_target_properties(
 set(EXPORT_NAME ${PROJECT_NAME}Targets)
 
 install(
-    TARGETS CGL 
+    TARGETS ${PROJECT_NAME} 
     EXPORT "${EXPORT_NAME}"
     PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
 )
@@ -61,5 +61,4 @@ install(
 install(
     EXPORT ${EXPORT_NAME}
     DESTINATION share/${PROJECT_NAME}
-    NAMESPACE CGL::
 )
