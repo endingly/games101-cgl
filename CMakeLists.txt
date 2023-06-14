@@ -34,7 +34,7 @@ set_target_properties(
 install(
     TARGETS CGL 
     EXPORT CGLTargets
-    PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
+    PUBLIC_HEADER DESTINATION "include/CGL"
 )
 
 include(CMakePackageConfigHelpers)
