@@ -17,48 +17,46 @@ find_package(Freetype REQUIRED)
 file(GLOB_RECURSE CGL_SOURCES_FILES src/*.cpp)
 file(GLOB_RECURSE CGL_HEADERS_FILES include/*.h)
 
-add_library(${PROJECT_NAME} ${CGL_SOURCES_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC glfw GLEW::GLEW PRIVATE Freetype::Freetype)
+add_library(CGL ${CGL_SOURCES_FILES})
+target_link_libraries(CGL PUBLIC glfw GLEW::GLEW PRIVATE Freetype::Freetype)
 target_include_directories(
-    ${PROJECT_NAME} PUBLIC
+    CGL PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 set_target_properties(
-    ${PROJECT_NAME} PROPERTIES
+    CGL PROPERTIES
     PUBLIC_HEADER "${CGL_HEADERS_FILES}"
     VERSION ${PROJECT_VERSION}
     DEBUG_POSTFIX d
 )
 
 # ############################################################ install CGL
-set(EXPORT_NAME ${PROJECT_NAME}Targets)
-
 install(
-    TARGETS ${PROJECT_NAME} 
-    EXPORT "${EXPORT_NAME}"
+    TARGETS CGL 
+    EXPORT CGLTargets
     PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
 )
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-    "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION "share/${PROJECT_NAME}"
+    "${PROJECT_SOURCE_DIR}/cmake/CGLConfig.cmake.in"
+    "${PROJECT_BINARY_DIR}/CGLConfig.cmake"
+    INSTALL_DESTINATION "share/CGL"
 )
 
 write_basic_package_version_file(
-    "${PROJECT_NAME}ConfigVersion.cmake"
+    "CGLConfigVersion.cmake"
     VERSION "${PROJECT_VERSION}"
     COMPATIBILITY SameMajorVersion
 )
 
 install(
-    FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    DESTINATION share/${PROJECT_NAME}
+    FILES "${PROJECT_BINARY_DIR}/CGLConfig.cmake"
+    "${PROJECT_BINARY_DIR}/CGLConfigVersion.cmake"
+    DESTINATION share/CGL
 )
 
 install(
-    EXPORT ${EXPORT_NAME}
-    DESTINATION share/${PROJECT_NAME}
+    EXPORT CGLTargets
+    DESTINATION share/CGL
 )
